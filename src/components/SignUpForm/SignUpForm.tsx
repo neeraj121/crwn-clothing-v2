@@ -49,9 +49,8 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
                 password
             );
             if (userAuth) {
-                await createUserDocumentFromAuth(userAuth.user, {
-                    displayName,
-                });
+                const currentUser = { ...userAuth.user, displayName };
+                await createUserDocumentFromAuth(currentUser);
                 resetFormFields();
             }
         } catch (error) {

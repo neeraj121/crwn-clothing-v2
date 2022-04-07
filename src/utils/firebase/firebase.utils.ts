@@ -6,8 +6,12 @@ import {
     GoogleAuthProvider,
     User,
     signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    NextFn,
 } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { AdditionalUserData } from "../../@types/user";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -31,9 +35,6 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 
-type AdditionalUserData = {
-    displayName?: string;
-};
 export const createUserDocumentFromAuth = async (
     userAuth: User,
     additionalInformation: AdditionalUserData = {}
@@ -72,3 +73,8 @@ export const signInAuthUserWithEmailAndPassword = async (
 ) => {
     return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = () => signOut(auth);
+
+export const onAuthStateChangedListener = (callback: NextFn<User | null>) =>
+    onAuthStateChanged(auth, callback);
