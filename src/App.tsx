@@ -4,12 +4,9 @@ import "./App.css";
 import Home from "./routes/Home/Home";
 import Navigation from "./routes/Navigation/Navigation";
 import Authentication from "./routes/Authentication/Authentication";
+import Shop from "./routes/Shop/Shop";
 
 interface AppProps {}
-
-const Shop: React.FC = () => {
-    return <div>I am the shop page</div>;
-};
 
 export const App: React.FC<AppProps> = () => {
     return (
