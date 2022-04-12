@@ -6,6 +6,9 @@ export type CartContextType = {
     isCartOpen: boolean;
     setIsCartOpen: (isCartOpen: boolean) => void;
     cartItems: CartItemType[];
-    addItemToCart: (productToAdd: Product) => void;
+    addItemToCart: (product: Product) => void;
+    removeItemFromCart: (product: Product) => void;
+    clearItemFromCart: (cartItem: CartItemType) => void;
     cartCount: number;
+    cartTotal: number;
 };
