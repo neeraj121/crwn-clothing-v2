@@ -8,7 +8,7 @@ interface ProductCardProps {
     product: Product;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const { name, price, imageUrl } = product;
     const { addItemToCart } = useContext(CartContext);
 
@@ -27,3 +27,5 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
     );
 };
+
+export default ProductCard;

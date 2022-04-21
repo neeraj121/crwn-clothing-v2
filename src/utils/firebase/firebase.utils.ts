@@ -10,7 +10,19 @@ import {
     onAuthStateChanged,
     NextFn,
 } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import {
+    collection,
+    CollectionReference,
+    doc,
+    DocumentData,
+    getDoc,
+    getDocs,
+    getFirestore,
+    query,
+    setDoc,
+    writeBatch,
+} from "firebase/firestore";
+import { CategoriesMap, FirestoreCategory } from "../../@types/categories";
 import { AdditionalUserData } from "../../@types/user";
 
 // Your web app's Firebase configuration
@@ -34,6 +46,50 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
+
+type ObjectsToAddType = {
+    [key: string]: any;
+};
+export const addCollectionAndDocuments = async (
+    collectionKey: string,
+    objectsToAdd: ObjectsToAddType[],
+    field: string
+) => {
+    const collectionRef = collection(db, collectionKey);
+    const batch = writeBatch(db);
+    objectsToAdd.forEach((object) => {
+        if (object.hasProperty(field)) {
+            const docRef = doc(collectionRef, object[field].toLowerCase());
+            batch.set(docRef, object);
+        }
+    });
+    await batch.commit();
+    console.log("done");
+};
+
+const createCollectionReference = <T = DocumentData>(
+    collectionName: string
+) => {
+    return collection(db, collectionName) as CollectionReference<T>;
+};
+
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef =
+        createCollectionReference<FirestoreCategory>("categories");
+    const q = query(collectionRef);
+
+    const querySnapshot = await getDocs(q);
+    const categoryMap = querySnapshot.docs.reduce(
+        (acc: CategoriesMap, docSnapshot) => {
+            const { title, items } = docSnapshot.data();
+            acc[title.toLowerCase()] = items;
+            return acc;
+        },
+        {}
+    );
+
+    return categoryMap;
+};
 
 export const createUserDocumentFromAuth = async (
     userAuth: User,
