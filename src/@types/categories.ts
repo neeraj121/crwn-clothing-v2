@@ -12,3 +12,9 @@ export type CategoriesMap = {
 export type CategoriesMapContextType = {
     categoriesMap: CategoriesMap;
 };
+
+export type Category = {
+    id: number;
+    title: string;
+    imageUrl: string;
+};

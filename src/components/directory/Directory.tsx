@@ -1,5 +1,6 @@
 import React from "react";
-import CategoryItem, { Category } from "../CategoryItem/CategoryItem";
+import { Category } from "../../@types/categories";
+import DirectoryItem from "../DirectoryItem/DirectoryItem";
 import "./Directory.styles.scss";
 
 interface DirectoryProps {
@@ -10,7 +11,7 @@ const Directory: React.FC<DirectoryProps> = ({ categories }) => {
     return (
         <div className="directory-container">
             {categories.map((category) => (
-                <CategoryItem key={category.id} category={category} />
+                <DirectoryItem key={category.id} category={category} />
             ))}
         </div>
     );
