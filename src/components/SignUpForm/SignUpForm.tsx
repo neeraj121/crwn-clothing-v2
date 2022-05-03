@@ -7,7 +7,7 @@ import {
     createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../FormInput/FormInput";
-import Button from "../CustomButton/Button";
+import Button from "../Button/Button";
 
 interface SignUpFormProps {}
 

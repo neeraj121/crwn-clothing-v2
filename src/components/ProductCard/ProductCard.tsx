@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Product } from "../../@types/product";
 import { CartContext } from "../../contexts/Cart.context";
-import Button from "../CustomButton/Button";
+import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
 import "./ProductCard.scss";
 
 interface ProductCardProps {
@@ -21,7 +21,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <span className="name">{name}</span>
                 <span className="price">{price}</span>
             </div>
-            <Button buttonType="inverted" onClick={addProductToCart}>
+            <Button buttonType={BUTTON_TYPE_CLASSES.inverted} onClick={addProductToCart}>
                 Add to cart
             </Button>
         </div>
