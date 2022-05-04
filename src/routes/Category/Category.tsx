@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Product } from "../../@types/product";
 import { CategoriesContext } from "../../contexts/Categories.context";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import "./Category.style.scss";
+import { CategoryContainer, CategoryTitle } from "./Category.style";
 
 interface CategoryProps {}
 
@@ -20,13 +20,13 @@ const Category: React.FC<CategoryProps> = () => {
 
     return (
         <div>
-            <h1 className="category-title">{category?.toUpperCase()}</h1>
-            <div className="category-container">
+            <CategoryTitle>{category?.toUpperCase()}</CategoryTitle>
+            <CategoryContainer>
                 {products &&
                     products.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
-            </div>
+            </CategoryContainer>
         </div>
     );
 };

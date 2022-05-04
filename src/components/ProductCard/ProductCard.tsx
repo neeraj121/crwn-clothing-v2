@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Product } from "../../@types/product";
 import { CartContext } from "../../contexts/Cart.context";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
-import "./ProductCard.scss";
+import { Footer, Name, Price, ProductCardContainer } from "./ProductCard.styles";
 
 interface ProductCardProps {
     product: Product;
@@ -15,16 +15,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     const addProductToCart = () => addItemToCart(product);
 
     return (
-        <div className="product-card-container">
+        <ProductCardContainer>
             <img src={imageUrl} alt={`${name}`} />
-            <div className="footer">
-                <span className="name">{name}</span>
-                <span className="price">{price}</span>
-            </div>
+            <Footer>
+                <Name>{name}</Name>
+                <Price>{price}</Price>
+            </Footer>
             <Button buttonType={BUTTON_TYPE_CLASSES.inverted} onClick={addProductToCart}>
                 Add to cart
             </Button>
-        </div>
+        </ProductCardContainer>
     );
 };
 

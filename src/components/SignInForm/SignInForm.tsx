@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./SignInForm.styles.scss";
 
 import FormInput from "../FormInput/FormInput";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
@@ -8,6 +7,7 @@ import {
     signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
 import { FirebaseError } from "firebase/app";
+import { ButtonContainer, SignInContainer } from "./SignInForm.styles";
 
 interface SignInFormProps {}
 
@@ -62,7 +62,7 @@ const SignInForm: React.FC<SignInFormProps> = () => {
     };
 
     return (
-        <div className="sign-in-container">
+        <SignInContainer>
             <h2>Already have an account?</h2>
             <span>Sign in with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -82,7 +82,7 @@ const SignInForm: React.FC<SignInFormProps> = () => {
                     name="password"
                     value={password}
                 />
-                <div className="buttons-container">
+                <ButtonContainer>
                     <Button type="submit">Sign In</Button>
                     <Button
                         type="button"
@@ -91,9 +91,9 @@ const SignInForm: React.FC<SignInFormProps> = () => {
                     >
                         Sign in with Google
                     </Button>
-                </div>
+                </ButtonContainer>
             </form>
-        </div>
+        </SignInContainer>
     );
 };
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./SignUpForm.styles.scss";
 
 import { FirebaseError } from "firebase/app";
 import {
@@ -8,6 +7,7 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../FormInput/FormInput";
 import Button from "../Button/Button";
+import { SignUpContainer } from "./SignUpForm.styles";
 
 interface SignUpFormProps {}
 
@@ -65,7 +65,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
     };
 
     return (
-        <div className="sign-up-container">
+        <SignUpContainer>
             <h2>Don't have an account?</h2>
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
@@ -103,7 +103,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
                 />
                 <Button type="submit">Sign Up</Button>
             </form>
-        </div>
+        </SignUpContainer>
     );
 };
 
