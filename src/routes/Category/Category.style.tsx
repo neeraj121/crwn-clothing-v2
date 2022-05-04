@@ -8,7 +8,7 @@ export const CategoryContainer = styled.div`
 `;
 
 export const CategoryTitle = styled.h1`
-    font-size: 28px;
+    font-size: 38px;
     margin-bottom: 25px;
-    cursor: pointer;
+    text-align: center;
 `;
