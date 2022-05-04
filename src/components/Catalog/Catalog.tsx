@@ -1,8 +1,8 @@
 import React from "react";
 import DirectoryItem from "../DirectoryItem/DirectoryItem";
-import { DirectoryContainer } from "./Directory.styles";
+import { DirectoryContainer } from "./Catalog.styles";
 
-interface DirectoryProps {}
+interface CatalogProps {}
 
 const categories = [
     {
@@ -32,7 +32,7 @@ const categories = [
     },
 ];
 
-const Directory: React.FC<DirectoryProps> = () => {
+const Catalog: React.FC<CatalogProps> = () => {
     return (
         <DirectoryContainer>
             {categories.map((category) => (
@@ -42,4 +42,4 @@ const Directory: React.FC<DirectoryProps> = () => {
     );
 };
 
-export default Directory;
+export default Catalog;

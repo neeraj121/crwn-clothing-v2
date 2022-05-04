@@ -1,10 +1,10 @@
 import React from "react";
-import Directory from "../../components/Directory/Directory.component";
+import Catalog from "../../components/Catalog/Catalog";
 
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-    return <Directory />;
+    return <Catalog />;
 };
 
 export default Home;
