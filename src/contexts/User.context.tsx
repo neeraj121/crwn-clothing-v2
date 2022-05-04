@@ -5,43 +5,45 @@ import {
     onAuthStateChangedListener,
 } from "../utils/firebase/firebase.utils";
 
-//as the actual value you want to access
-export const UserContext = createContext<UserState>({
-    currentUser: null,
-});
+export enum USER_ACTION_TYPES {
+    SET_CURRENT_USER = "SET_CURRENT_USER",
+}
 
-export const USER_ACTION_TYPES = {
-    SET_CURRENT_USER: 'SET_CURRENT_USER'
+type UserAction = { type: USER_ACTION_TYPES.SET_CURRENT_USER; payload: MyUser };
+
+const INITIAL_STATE = {
+    currentUser: null,
 };
 
-type UserAction = { type: string, payload: MyUser }; 
-
-const userReducer: Reducer<UserState, UserAction> = (state, action) => {
+const userReducer: Reducer<UserState, UserAction> = (
+    state = INITIAL_STATE,
+    action
+) => {
     const { type, payload } = action;
-    switch(type){
-        case USER_ACTION_TYPES.SET_CURRENT_USER: 
+    switch (type) {
+        case USER_ACTION_TYPES.SET_CURRENT_USER:
             return {
                 ...state,
-                currentUser: payload
+                currentUser: payload,
             };
         default:
             return state;
     }
-}
+};
 
-const INITIAL_STATE = {
-    currentUser: null
-}
+export const UserContext = createContext<UserState>({
+    ...INITIAL_STATE,
+});
 
 export const UserProvider: React.FC = ({ children }) => {
-    const [{currentUser}, dispatch] = useReducer(userReducer, INITIAL_STATE);
+    const [userState, dispatch] = useReducer(userReducer, INITIAL_STATE);
     const setCurrentUser = (user: MyUser) => {
         dispatch({
             type: USER_ACTION_TYPES.SET_CURRENT_USER,
-            payload: user
-        })
-    }
-    const value = { currentUser };
+            payload: user,
+        });
+    };
+    const value = userState;
 
     useEffect(() => {
         const unsubscribe = onAuthStateChangedListener((user) => {

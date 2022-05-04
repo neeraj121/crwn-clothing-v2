@@ -2,13 +2,16 @@ import { Product } from "./product";
 
 export type CartItemType = Product & { quantity: number };
 
-export type CartContextType = {
+export type CartState = {
     isCartOpen: boolean;
-    setIsCartOpen: (isCartOpen: boolean) => void;
     cartItems: CartItemType[];
+    cartCount: number;
+    cartTotal: number;
+}
+
+export type CartContextType = CartState & {
+    setIsCartOpen: (isCartOpen: boolean) => void;
     addItemToCart: (product: Product) => void;
     removeItemFromCart: (product: Product) => void;
     clearItemFromCart: (cartItem: CartItemType) => void;
-    cartCount: number;
-    cartTotal: number;
 };
