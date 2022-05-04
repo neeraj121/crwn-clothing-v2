@@ -6,6 +6,6 @@ export type AdditionalUserData = {
 
 export type MyUser = User | null;
 
-export type UserContextType = {
+export type UserState = {
     currentUser: MyUser;
-};
+}
