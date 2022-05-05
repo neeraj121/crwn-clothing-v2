@@ -1,7 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Category } from "../../@types/categories";
-import { BackgroundImage, BodyContainer, DirectoryItemContainer } from "./DirectoryItem.styles";
+import { Category } from "../../store/categories/categories.types";
+import {
+    BackgroundImage,
+    BodyContainer,
+    DirectoryItemContainer,
+} from "./DirectoryItem.styles";
 import "./DirectoryItem.styles.tsx";
 
 interface DirectoryItemProps {
@@ -13,8 +17,8 @@ const DirectoryItem: React.FC<DirectoryItemProps> = ({ category }) => {
     const navigate = useNavigate();
 
     const onNavigateHandler = () => {
-        navigate(`/shop/${title}`)
-    }
+        navigate(`/shop/${title}`);
+    };
 
     return (
         <DirectoryItemContainer onClick={onNavigateHandler}>

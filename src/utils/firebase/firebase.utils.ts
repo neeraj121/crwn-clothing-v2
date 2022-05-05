@@ -22,7 +22,10 @@ import {
     setDoc,
     writeBatch,
 } from "firebase/firestore";
-import { CategoriesMap, FirestoreCategory } from "../../@types/categories";
+import {
+    CategoriesMap,
+    FirestoreCategory,
+} from "../../store/categories/categories.types";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {

@@ -1,8 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
-import { CategoriesMap, CategoriesMapContextType } from "../@types/categories";
+import {
+    CategoriesMap,
+    CategoriesState,
+} from "../store/categories/categories.types";
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
 
-export const CategoriesContext = createContext<CategoriesMapContextType>({
+export const CategoriesContext = createContext<CategoriesState>({
     categoriesMap: {},
 });
 

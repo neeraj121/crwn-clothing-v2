@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import CategoryPreview from "../../components/CategoryPreview/CategoryPreview";
-import { CategoriesContext } from "../../contexts/Categories.context";
+import { selectCategoryMap } from "../../store/categories/categories.selector";
 
 interface CategoriesPreviewProps {}
 
 const CategoriesPreview: React.FC<CategoriesPreviewProps> = () => {
-    const { categoriesMap } = useContext(CategoriesContext);
+    const categoriesMap = useSelector(selectCategoryMap);
 
     return (
         <>

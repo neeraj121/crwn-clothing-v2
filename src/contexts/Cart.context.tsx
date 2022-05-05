@@ -1,6 +1,6 @@
 import { createContext, Reducer, useReducer } from "react";
 import { CartContextType, CartItemType, CartState } from "../@types/cart";
-import { Product } from "../@types/product";
+import { Product } from "../store/categories/categories.types";
 
 const addCartItem = (cartItems: CartItemType[], product: Product) => {
     const existingCartItem = cartItems.find(

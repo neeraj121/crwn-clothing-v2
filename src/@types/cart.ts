@@ -1,4 +1,4 @@
-import { Product } from "./product";
+import { Product } from "../store/categories/categories.types";
 
 export type CartItemType = Product & { quantity: number };
 
@@ -7,7 +7,7 @@ export type CartState = {
     cartItems: CartItemType[];
     cartCount: number;
     cartTotal: number;
-}
+};
 
 export type CartContextType = CartState & {
     setIsCartOpen: (isCartOpen: boolean) => void;

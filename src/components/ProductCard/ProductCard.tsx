@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
-import { Product } from "../../@types/product";
 import { CartContext } from "../../contexts/Cart.context";
+import { Product } from "../../store/categories/categories.types";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
-import { Footer, Name, Price, ProductCardContainer } from "./ProductCard.styles";
+import {
+    Footer,
+    Name,
+    Price,
+    ProductCardContainer,
+} from "./ProductCard.styles";
 
 interface ProductCardProps {
     product: Product;
@@ -21,7 +26,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <Name>{name}</Name>
                 <Price>{price}</Price>
             </Footer>
-            <Button buttonType={BUTTON_TYPE_CLASSES.inverted} onClick={addProductToCart}>
+            <Button
+                buttonType={BUTTON_TYPE_CLASSES.inverted}
+                onClick={addProductToCart}
+            >
                 Add to cart
             </Button>
         </ProductCardContainer>

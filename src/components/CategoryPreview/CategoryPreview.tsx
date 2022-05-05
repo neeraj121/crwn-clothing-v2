@@ -1,7 +1,11 @@
 import React from "react";
-import { Product } from "../../@types/product";
+import { Product } from "../../store/categories/categories.types";
 import ProductCard from "../ProductCard/ProductCard";
-import { CategoryPreviewContainer,Preview, Title } from "./CategoryPreview.styles";
+import {
+    CategoryPreviewContainer,
+    Preview,
+    Title,
+} from "./CategoryPreview.styles";
 
 interface CategoryPreviewProps {
     title: string;
@@ -15,9 +19,7 @@ const CategoryPreview: React.FC<CategoryPreviewProps> = ({
     return (
         <CategoryPreviewContainer>
             <h2>
-                <Title to={title}>
-                    {title.toUpperCase()}
-                </Title>
+                <Title to={title}>{title.toUpperCase()}</Title>
             </h2>
             <Preview>
                 {products
