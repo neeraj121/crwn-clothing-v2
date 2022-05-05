@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useReducer, Reducer } from "react";
-import { MyUser, UserState } from "../@types/user";
+import { MyUser, UserState } from "../store/user/user.types";
 import {
     createUserDocumentFromAuth,
     onAuthStateChangedListener,

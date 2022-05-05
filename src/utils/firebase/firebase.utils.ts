@@ -23,7 +23,6 @@ import {
     writeBatch,
 } from "firebase/firestore";
 import { CategoriesMap, FirestoreCategory } from "../../@types/categories";
-import { AdditionalUserData } from "../../@types/user";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -89,6 +88,10 @@ export const getCategoriesAndDocuments = async () => {
     );
 
     return categoryMap;
+};
+
+export type AdditionalUserData = {
+    displayName?: string;
 };
 
 export const createUserDocumentFromAuth = async (

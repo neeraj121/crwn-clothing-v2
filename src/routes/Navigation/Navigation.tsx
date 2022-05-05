@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import "./Navigation.styles.tsx";
 import { Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-import { UserContext } from "../../contexts/User.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../components/CartIcon/CartIcon";
 import CartDropdown from "../../components/CartDropdown/CartDropdown";
@@ -14,9 +13,11 @@ import {
     NavLinkContainer,
     NavLink,
 } from "./Navigation.styles";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector";
 
 const Navigation: React.FC = () => {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
     const { isCartOpen } = useContext(CartContext);
 
     const signOutHandler = async () => {
