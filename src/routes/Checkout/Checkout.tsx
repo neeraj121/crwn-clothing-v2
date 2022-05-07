@@ -1,12 +1,22 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import CheckoutItem from "../../components/CheckoutItem/CheckoutItem";
-import { CartContext } from "../../contexts/Cart.context";
-import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from "./Checkout.styles";
+import {
+    selectCartItems,
+    selectCartTotal,
+} from "../../store/cart/cart.selector";
+import {
+    CheckoutContainer,
+    CheckoutHeader,
+    HeaderBlock,
+    Total,
+} from "./Checkout.styles";
 
 interface CheckoutProps {}
 
 const Checkout: React.FC<CheckoutProps> = () => {
-    const { cartItems, cartTotal } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const cartTotal = useSelector(selectCartTotal);
 
     return (
         <CheckoutContainer>
