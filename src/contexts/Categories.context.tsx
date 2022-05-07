@@ -1,22 +1,22 @@
 import React, { createContext, useEffect, useState } from "react";
 import {
-    CategoriesMap,
     CategoriesState,
+    FirestoreCategory,
 } from "../store/categories/categories.types";
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
 
 export const CategoriesContext = createContext<CategoriesState>({
-    categoriesMap: {},
+    categories: [],
 });
 
 export const CategoriesProvider: React.FC = ({ children }) => {
-    const [categoriesMap, setCategoriesMap] = useState<CategoriesMap>({});
-    const value = { categoriesMap };
+    const [categories, setCategories] = useState<FirestoreCategory[]>([]);
+    const value = { categories };
 
     useEffect(() => {
         const getCategories = async () => {
-            const categoryMapResponse = await getCategoriesAndDocuments();
-            setCategoriesMap(categoryMapResponse);
+            const categories = await getCategoriesAndDocuments();
+            setCategories(categories);
         };
         getCategories();
     }, []);

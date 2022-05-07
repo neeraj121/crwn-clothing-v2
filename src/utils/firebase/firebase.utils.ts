@@ -22,10 +22,7 @@ import {
     setDoc,
     writeBatch,
 } from "firebase/firestore";
-import {
-    CategoriesMap,
-    FirestoreCategory,
-} from "../../store/categories/categories.types";
+import { FirestoreCategory } from "../../store/categories/categories.types";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -81,16 +78,17 @@ export const getCategoriesAndDocuments = async () => {
     const q = query(collectionRef);
 
     const querySnapshot = await getDocs(q);
-    const categoryMap = querySnapshot.docs.reduce(
-        (acc: CategoriesMap, docSnapshot) => {
-            const { title, items } = docSnapshot.data();
-            acc[title.toLowerCase()] = items;
-            return acc;
-        },
-        {}
-    );
+    return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+    // const categoryMap = querySnapshot.docs.reduce(
+    //     (acc: CategoriesMap, docSnapshot) => {
+    //         const { title, items } = docSnapshot.data();
+    //         acc[title.toLowerCase()] = items;
+    //         return acc;
+    //     },
+    //     {}
+    // );
 
-    return categoryMap;
+    // return categoryMap;
 };
 
 export type AdditionalUserData = {

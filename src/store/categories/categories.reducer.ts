@@ -2,7 +2,7 @@ import { AnyAction, Reducer } from "redux";
 import { CategoriesState, CATEGORIES_ACTION_TYPES } from "./categories.types";
 
 const INITIAL_STATE = {
-    categoriesMap: {},
+    categories: [],
 };
 
 export const categoriesReducer: Reducer<CategoriesState, AnyAction> = (
@@ -11,10 +11,10 @@ export const categoriesReducer: Reducer<CategoriesState, AnyAction> = (
 ) => {
     const { type, payload } = action;
     switch (type) {
-        case CATEGORIES_ACTION_TYPES.SET_CATEGORIES_MAP:
+        case CATEGORIES_ACTION_TYPES.SET_CATEGORIES:
             return {
                 ...state,
-                categoriesMap: payload,
+                categories: payload,
             };
         default:
             return state;

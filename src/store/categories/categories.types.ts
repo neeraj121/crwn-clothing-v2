@@ -1,5 +1,5 @@
 export enum CATEGORIES_ACTION_TYPES {
-    SET_CATEGORIES_MAP = "SET_CATEGORIES_MAP",
+    SET_CATEGORIES = "SET_CATEGORIES",
 }
 
 export type Product = {
@@ -25,5 +25,5 @@ export type CategoriesMap = {
 };
 
 export type CategoriesState = {
-    categoriesMap: CategoriesMap;
+    categories: FirestoreCategory[];
 };

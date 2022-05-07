@@ -13,7 +13,8 @@ const Shop: React.FC<ShopProps> = () => {
     useEffect(() => {
         const getCategories = async () => {
             const categoryMapResponse = await getCategoriesAndDocuments();
-            dispatch(setCategoriesMap(categoryMapResponse));
+            console.log(categoryMapResponse);
+            //dispatch(setCategoriesMap(categoryMapResponse));
         };
         getCategories();
     }, [dispatch]);
