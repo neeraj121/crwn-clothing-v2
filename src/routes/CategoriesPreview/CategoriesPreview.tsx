@@ -1,12 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CategoryPreview from "../../components/CategoryPreview/CategoryPreview";
-import { selectCategoryMap } from "../../store/categories/categories.selector";
+import { selectCategoriesMap } from "../../store/categories/categories.selector";
 
 interface CategoriesPreviewProps {}
 
 const CategoriesPreview: React.FC<CategoriesPreviewProps> = () => {
-    const categoriesMap = useSelector(selectCategoryMap);
+    const categoriesMap = useSelector(selectCategoriesMap);
 
     return (
         <>

@@ -1,6 +1,6 @@
-import { CategoriesMap, CATEGORIES_ACTION_TYPES } from "./categories.types";
+import { CATEGORIES_ACTION_TYPES, FirestoreCategory } from "./categories.types";
 
-export const setCategoriesMap = (categoriesMap: CategoriesMap) => ({
+export const setCategories = (categories: FirestoreCategory[]) => ({
     type: CATEGORIES_ACTION_TYPES.SET_CATEGORIES,
-    payload: categoriesMap,
+    payload: categories,
 });
