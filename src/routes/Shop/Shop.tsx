@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { setCategories } from "../../store/categories/categories.action";
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.utils";
+import { fetchCategoriesAsync } from "../../store/categories/categories.action";
+import { AppDispatch } from "../../store/store";
 import CategoriesPreview from "../CategoriesPreview/CategoriesPreview";
 import Category from "../Category/Category";
 
 interface ShopProps {}
 
 const Shop: React.FC<ShopProps> = () => {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     useEffect(() => {
-        const getCategories = async () => {
-            const categories = await getCategoriesAndDocuments();
-            dispatch(setCategories(categories));
-        };
-        getCategories();
+        dispatch(fetchCategoriesAsync());
     }, [dispatch]);
 
     return (
