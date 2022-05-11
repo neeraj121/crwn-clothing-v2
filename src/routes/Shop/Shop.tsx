@@ -1,17 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { fetchCategoriesAsync } from "../../store/categories/categories.action";
-import { AppDispatch } from "../../store/store";
+import { fetchCategoriesStart } from "../../store/categories/categories.action";
 import CategoriesPreview from "../CategoriesPreview/CategoriesPreview";
 import Category from "../Category/Category";
 
 interface ShopProps {}
 
 const Shop: React.FC<ShopProps> = () => {
-    const dispatch: AppDispatch = useDispatch();
+    const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(fetchCategoriesAsync());
+        dispatch(fetchCategoriesStart());
     }, [dispatch]);
 
     return (

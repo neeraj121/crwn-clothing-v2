@@ -74,7 +74,7 @@ const createCollectionReference = <T = DocumentData>(
 
 export const getCategoriesAndDocuments = async () => {
     const collectionRef =
-        createCollectionReference<FirestoreCategory>("categorieas");
+        createCollectionReference<FirestoreCategory>("categories");
     const q = query(collectionRef);
 
     const querySnapshot = await getDocs(q);
