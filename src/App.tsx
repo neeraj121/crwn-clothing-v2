@@ -6,11 +6,7 @@ import Navigation from "./routes/Navigation/Navigation";
 import Authentication from "./routes/Authentication/Authentication";
 import Shop from "./routes/Shop/Shop";
 import Checkout from "./routes/Checkout/Checkout";
-import {
-    createUserDocumentFromAuth,
-    onAuthStateChangedListener,
-} from "./utils/firebase/firebase.utils";
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 import { useDispatch } from "react-redux";
 
 interface AppProps {}
@@ -18,13 +14,7 @@ interface AppProps {}
 export const App: React.FC<AppProps> = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        const unsubscribe = onAuthStateChangedListener((user) => {
-            if (user) {
-                createUserDocumentFromAuth(user);
-            }
-            dispatch(setCurrentUser(user));
-        });
-        return unsubscribe();
+        dispatch(checkUserSession());
     }, [dispatch]);
 
     return (
