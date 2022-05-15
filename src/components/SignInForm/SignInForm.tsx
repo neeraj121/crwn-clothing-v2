@@ -2,12 +2,14 @@ import React, { useState } from "react";
 
 import FormInput from "../FormInput/FormInput";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
-import {
-    signInAuthUserWithEmailAndPassword,
-    signInWithGooglePopup,
-} from "../../utils/firebase/firebase.utils";
+import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import { FirebaseError } from "firebase/app";
 import { ButtonContainer, SignInContainer } from "./SignInForm.styles";
+import { useDispatch } from "react-redux";
+import {
+    emailSignInStart,
+    googleSignInStart,
+} from "../../store/user/user.action";
 
 interface SignInFormProps {}
 
@@ -19,9 +21,10 @@ const defaultFormFields = {
 const SignInForm: React.FC<SignInFormProps> = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
+    const dispatch = useDispatch();
 
     const signInWithGoogle = () => {
-        signInWithGooglePopup();
+        dispatch(googleSignInStart());
     };
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,23 +43,10 @@ const SignInForm: React.FC<SignInFormProps> = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
         try {
-            await signInAuthUserWithEmailAndPassword(email, password);
+            dispatch(emailSignInStart(email, password));
             resetFormFields();
         } catch (error) {
-            if (error instanceof FirebaseError) {
-                switch (error.code) {
-                    case "auth/wrong-password":
-                        alert("Incorrect username/password");
-                        break;
-                    case "auth/user-not-found":
-                        alert("Incorrect username/password");
-                        break;
-                    default:
-                        console.log(error);
-                }
-            }
             console.log(error);
         }
     };
