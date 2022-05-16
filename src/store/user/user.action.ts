@@ -1,9 +1,6 @@
+import { User } from "firebase/auth";
+import { AdditionalInformation } from "../../utils/firebase/firebase.utils";
 import { MyUser, USER_ACTION_TYPES } from "./user.types";
-
-export const setCurrentUser = (user: MyUser) => ({
-    type: USER_ACTION_TYPES.SET_CURRENT_USER,
-    payload: user,
-});
 
 export const checkUserSession = () => ({
     type: USER_ACTION_TYPES.CHECK_USER_SESSION,
@@ -25,5 +22,40 @@ export const signInSuccess = (user: MyUser) => ({
 
 export const signInFailed = (error: string) => ({
     type: USER_ACTION_TYPES.SIGN_IN_FAILED,
+    payload: error,
+});
+
+export const signUpStart = (
+    email: string,
+    password: string,
+    displayName: string
+) => ({
+    type: USER_ACTION_TYPES.SIGN_UP_START,
+    payload: { email, password, displayName },
+});
+
+export const signUpSuccess = (
+    user: User,
+    additionalDetails: AdditionalInformation
+) => ({
+    type: USER_ACTION_TYPES.SIGN_UP_SUCCESS,
+    payload: { user, additionalDetails },
+});
+
+export const signUpFailed = (error: string) => ({
+    type: USER_ACTION_TYPES.SIGN_UP_FAILED,
+    payload: error,
+});
+
+export const signOutStart = () => ({
+    type: USER_ACTION_TYPES.SIGN_OUT_START,
+});
+
+export const signOutSuccess = () => ({
+    type: USER_ACTION_TYPES.SIGN_OUT_SUCCESS,
+});
+
+export const signOutFailed = (error: string) => ({
+    type: USER_ACTION_TYPES.SIGN_OUT_FAILED,
     payload: error,
 });

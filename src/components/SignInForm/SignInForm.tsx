@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import FormInput from "../FormInput/FormInput";
 import Button, { BUTTON_TYPE_CLASSES } from "../Button/Button";
-import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
-import { FirebaseError } from "firebase/app";
 import { ButtonContainer, SignInContainer } from "./SignInForm.styles";
 import { useDispatch } from "react-redux";
 import {
