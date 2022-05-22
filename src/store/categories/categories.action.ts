@@ -2,6 +2,7 @@ import {
     Action,
     ActionWithPayload,
     createAction,
+    withMatcher,
 } from "../../utils/reducer/reducer.utils";
 import { CATEGORIES_ACTION_TYPES, FirestoreCategory } from "./categories.types";
 
@@ -18,18 +19,20 @@ export type FetchCategoriesError = ActionWithPayload<
     Error
 >;
 
-export type CategoryAction =
-    | FetchCategoriesStart
-    | FetchCategoriesSuccess
-    | FetchCategoriesError;
+export const fetchCategoriesStart = withMatcher(
+    (): FetchCategoriesStart =>
+        createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
+);
 
-export const fetchCategoriesStart = (): FetchCategoriesStart =>
-    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
+export const fetchCategoriesSuccess = withMatcher(
+    (categories: FirestoreCategory[]): FetchCategoriesSuccess =>
+        createAction(
+            CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
+            categories
+        )
+);
 
-export const fetchCategoriesSuccess = (
-    categories: FirestoreCategory[]
-): FetchCategoriesSuccess =>
-    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categories);
-
-export const fetchCategoriesError = (error: Error): FetchCategoriesError =>
-    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error);
+export const fetchCategoriesError = withMatcher(
+    (error: Error): FetchCategoriesError =>
+        createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL, error)
+);
