@@ -11,7 +11,7 @@ export function* fetchCategoriesAsync(): Generator {
         const categories = yield call(getCategoriesAndDocuments);
         yield put(fetchCategoriesSuccess(categories as FirestoreCategory[]));
     } catch (error) {
-        yield put(fetchCategoriesError(error as string));
+        yield put(fetchCategoriesError(error as Error));
     }
 }
 

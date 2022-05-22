@@ -25,9 +25,3 @@ export type FirestoreCategory = {
 export type CategoriesMap = {
     [title: string]: Product[];
 };
-
-export type CategoriesState = {
-    categories: FirestoreCategory[];
-    isLoading: boolean;
-    error?: null | string;
-};

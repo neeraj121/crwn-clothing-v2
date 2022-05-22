@@ -1,18 +1,24 @@
-import { AnyAction, Reducer } from "redux";
-import { CategoriesState, CATEGORIES_ACTION_TYPES } from "./categories.types";
+import { Reducer } from "redux";
+import { CategoryAction } from "./categories.action";
+import { CATEGORIES_ACTION_TYPES, FirestoreCategory } from "./categories.types";
 
-const INITIAL_STATE = {
+export type CategoriesState = {
+    readonly categories: FirestoreCategory[];
+    readonly isLoading: boolean;
+    readonly error: Error | null;
+};
+
+const CATEGORIES_INITIAL_STATE: CategoriesState = {
     categories: [],
     isLoading: false,
     error: null,
 };
 
-export const categoriesReducer: Reducer<CategoriesState, AnyAction> = (
-    state = INITIAL_STATE,
+export const categoriesReducer: Reducer<CategoriesState, CategoryAction> = (
+    state = CATEGORIES_INITIAL_STATE,
     action
 ) => {
-    const { type, payload } = action;
-    switch (type) {
+    switch (action.type) {
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
             return {
                 ...state,
@@ -22,13 +28,13 @@ export const categoriesReducer: Reducer<CategoriesState, AnyAction> = (
             return {
                 ...state,
                 isLoading: false,
-                categories: payload,
+                categories: action.payload,
             };
         case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAIL:
             return {
                 ...state,
                 isLoading: false,
-                error: payload,
+                error: action.payload,
             };
         default:
             return state;
