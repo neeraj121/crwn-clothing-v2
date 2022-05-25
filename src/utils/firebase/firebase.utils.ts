@@ -79,6 +79,13 @@ export const getCategoriesAndDocuments = async () => {
     );
 };
 
+export type UserData = {
+    id: string;
+    createdAt: Date;
+    displayName: string;
+    email: string;
+};
+
 export type AdditionalInformation = {
     displayName?: string;
 };
@@ -86,8 +93,8 @@ export type AdditionalInformation = {
 export const createUserDocumentFromAuth = async (
     userAuth: User,
     additionalInformation: AdditionalInformation = {}
-) => {
-    if (!userAuth) return null;
+): Promise<QueryDocumentSnapshot<UserData> | void> => {
+    if (!userAuth) return;
 
     const userDocRef = doc(db, "users", userAuth.uid);
     let userSnapshot = await getDoc(userDocRef);
@@ -95,7 +102,9 @@ export const createUserDocumentFromAuth = async (
     if (!userSnapshot.exists()) {
         const { email } = userAuth;
         const displayName =
-            userAuth.displayName && additionalInformation.displayName;
+            userAuth.displayName ||
+            additionalInformation.displayName ||
+            "Guest";
         const createdAt = new Date();
         try {
             await setDoc(userDocRef, {
@@ -106,18 +115,17 @@ export const createUserDocumentFromAuth = async (
             });
             userSnapshot = await getDoc(userDocRef);
         } catch (error) {
-            console.log("Error creating user", error);
-            return null;
+            console.log("Error creating user", error as Error);
         }
     }
 
-    return userSnapshot as QueryDocumentSnapshot<User>;
+    return userSnapshot as QueryDocumentSnapshot<UserData>;
 };
 
 export const createAuthUserWithEmailAndPassword = async (
     email: string,
     password: string
-): Promise<UserCredential | void> => {
+) => {
     if (!email || !password) return;
     return await createUserWithEmailAndPassword(auth, email, password);
 };

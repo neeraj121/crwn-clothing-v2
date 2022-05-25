@@ -1,7 +1,23 @@
 import { Reducer, AnyAction } from "redux";
-import { UserState, USER_ACTION_TYPES } from "./user.types";
+import { UserData } from "../../utils/firebase/firebase.utils";
+import {
+    emailSignInStart,
+    googleSignInStart,
+    signInFailed,
+    signInSuccess,
+    signOutFailed,
+    signOutSuccess,
+    signUpFailed,
+    signUpStart,
+} from "./user.action";
 
-const INITIAL_STATE = {
+export type UserState = {
+    readonly currentUser: UserData | null;
+    readonly isLoading: boolean;
+    readonly error: null | string;
+};
+
+const INITIAL_STATE: UserState = {
     currentUser: null,
     isLoading: false,
     error: null,
@@ -12,25 +28,45 @@ export const userReducer: Reducer<UserState, AnyAction> = (
     action
 ) => {
     const { type, payload } = action;
-    switch (type) {
-        case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
-            return {
-                ...state,
-                currentUser: payload,
-            };
-        case USER_ACTION_TYPES.SIGN_OUT_SUCCESS:
-            return {
-                ...state,
-                currentUser: null,
-            };
-        case USER_ACTION_TYPES.SIGN_IN_FAILED:
-        case USER_ACTION_TYPES.SIGN_UP_FAILED:
-        case USER_ACTION_TYPES.SIGN_OUT_FAILED:
-            return {
-                ...state,
-                error: payload,
-            };
-        default:
-            return state;
+
+    if (
+        emailSignInStart.match(type) ||
+        googleSignInStart.match(type) ||
+        signUpStart.match(type)
+    ) {
+        return {
+            ...state,
+            isLoading: true,
+        };
     }
+
+    if (signInSuccess.match(type)) {
+        return {
+            ...state,
+            isLoading: false,
+            currentUser: payload,
+        };
+    }
+
+    if (signOutSuccess.match(type)) {
+        return {
+            ...state,
+            isLoading: false,
+            currentUser: null,
+        };
+    }
+
+    if (
+        signInFailed.match(type) ||
+        signUpFailed.match(type) ||
+        signOutFailed.match(type)
+    ) {
+        return {
+            ...state,
+            isLoading: false,
+            error: payload,
+        };
+    }
+
+    return state;
 };

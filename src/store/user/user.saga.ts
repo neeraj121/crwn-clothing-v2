@@ -37,16 +37,16 @@ export function* getSnapshotFromUserAuth(
             additionalDetails
         );
         const userSnapshotTyped = userSnapshot as UserSnapshot;
-        if (userSnapshotTyped) {
+        if (userSnapshotTyped && userSnapshotTyped.exists()) {
             yield put(
                 signInSuccess({
-                    id: userSnapshotTyped.id,
                     ...userSnapshotTyped.data(),
+                    id: userSnapshotTyped.id,
                 })
             );
         }
     } catch (error) {
-        yield put(signInFailed(error as string));
+        yield put(signInFailed(error as Error));
     }
 }
 
@@ -58,7 +58,7 @@ export function* signInWithGoogle(): Generator {
         const { user } = userAuth as UserCredential;
         yield call(getSnapshotFromUserAuth, user);
     } catch (error) {
-        yield put(signInFailed(error as string));
+        yield put(signInFailed(error as Error));
     }
 }
 
@@ -87,7 +87,7 @@ export function* signInWithEmail(
                     console.log(error);
             }
         }
-        yield put(signInFailed(error as string));
+        yield put(signInFailed(error as Error));
     }
 }
 
@@ -108,7 +108,7 @@ export function* signUp(action: ReturnType<typeof signUpStart>): Generator {
         ) {
             alert("Cannot create user, email already in use");
         }
-        yield put(signUpFailed(error as string));
+        yield put(signUpFailed(error as Error));
     }
 }
 
@@ -124,7 +124,7 @@ export function* signOut(): Generator {
         yield call(signOutUser);
         yield put(signOutSuccess());
     } catch (error) {
-        yield put(signOutFailed(error as string));
+        yield put(signOutFailed(error as Error));
     }
 }
 
@@ -135,7 +135,7 @@ export function* isUserAuthenticated(): Generator {
         if (!userAuthTyped) return;
         yield call(getSnapshotFromUserAuth, userAuthTyped);
     } catch (error) {
-        yield put(signInFailed(error as string));
+        yield put(signInFailed(error as Error));
     }
 }
 
