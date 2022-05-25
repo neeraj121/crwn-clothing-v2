@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, Middleware, applyMiddleware } from "redux";
 import { rootReducer } from "./root-reducer";
 
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
@@ -18,11 +18,12 @@ const persistConfig = {
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewares = [];
-process.env.NODE_ENV === "development" && middlewares.push(logger);
-
 const sagaMiddleware = createSagaMiddleware();
-middlewares.push(sagaMiddleware);
+
+const middlewares = [
+    process.env.NODE_ENV !== "production" && logger,
+    sagaMiddleware,
+].filter((middleware): middleware is Middleware => Boolean(middleware));
 
 const composedEnhancers = composeWithDevTools(applyMiddleware(...middlewares));
 
