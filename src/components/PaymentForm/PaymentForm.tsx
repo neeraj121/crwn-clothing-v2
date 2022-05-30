@@ -1,4 +1,5 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { StripeCardElement } from "@stripe/stripe-js";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart.selector";
@@ -10,9 +11,11 @@ import {
     PaymentFormContainer,
 } from "./PaymentForm.styles";
 
-interface PaymentFormProps {}
+const ifValidCardElement = (
+    card: StripeCardElement | null
+): card is StripeCardElement => card !== null;
 
-const PaymentForm: React.FC<PaymentFormProps> = () => {
+const PaymentForm: React.FC = () => {
     const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     const amount = useSelector(selectCartTotal);
     const currentUser = useSelector(selectCurrentUser);
@@ -20,9 +23,7 @@ const PaymentForm: React.FC<PaymentFormProps> = () => {
     const stripe = useStripe();
     const elements = useElements();
 
-    const paymentHandler: React.FormEventHandler<HTMLFormElement> = async (
-        event
-    ) => {
+    const paymentHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (!stripe || !elements) {
@@ -45,9 +46,9 @@ const PaymentForm: React.FC<PaymentFormProps> = () => {
 
         setIsProcessingPayment(false);
 
-        const clientSecret: string = response.paymentIntent.client_secret;
+        const clientSecret = response.paymentIntent.client_secret as string;
         const cardElement = elements.getElement(CardElement);
-        if (cardElement) {
+        if (ifValidCardElement(cardElement)) {
             const paymentResult = await stripe.confirmCardPayment(
                 clientSecret,
                 {

@@ -10,19 +10,21 @@ import {
 import { Product } from "../../store/categories/categories.types";
 import Spinner from "../../components/Spinner/Spinner";
 
-interface CategoryProps {}
+type CategoryRouteParams = {
+    category: string;
+};
 
-const Category: React.FC<CategoryProps> = () => {
-    const { category } = useParams();
+const Category: React.FC = () => {
+    const { category } = useParams<
+        keyof CategoryRouteParams
+    >() as CategoryRouteParams;
     const categoriesMap = useSelector(selectCategoriesMap);
     const isLoading = useSelector(selectIsLoading);
 
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        if (category) {
-            setProducts(categoriesMap[category]);
-        }
+        setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
 
     return isLoading ? (
