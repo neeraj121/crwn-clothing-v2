@@ -6,8 +6,6 @@ import { SignUpContainer } from "./SignUpForm.styles";
 import { useDispatch } from "react-redux";
 import { signUpStart } from "../../store/user/user.action";
 
-interface SignUpFormProps {}
-
 const defaultFormFields = {
     displayName: "",
     email: "",
@@ -15,7 +13,7 @@ const defaultFormFields = {
     confirmPassword: "",
 };
 
-const SignUpForm: React.FC<SignUpFormProps> = () => {
+const SignUpForm: React.FC = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
     const dispatch = useDispatch();

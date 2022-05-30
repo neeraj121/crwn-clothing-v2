@@ -1,20 +1,21 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import { FormInputLabel, Group, Input } from "./FormInput.styles";
 
-interface FormInputProps {
-    label?: string;
-    type?: string;
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
-    required?: boolean;
-    name: string;
-    value: string;
-}
+type FormInputProps = {
+    label: string;
+} & InputHTMLAttributes<HTMLInputElement>;
 
 const FormInput: React.FC<FormInputProps> = ({ label, ...otherProps }) => {
     return (
         <Group>
             {label && (
-                <FormInputLabel shrink={otherProps.value.length ? true : false}>
+                <FormInputLabel
+                    shrink={Boolean(
+                        otherProps.value &&
+                            typeof otherProps.value === "string" &&
+                            otherProps.value.length
+                    )}
+                >
                     {label}
                 </FormInputLabel>
             )}
